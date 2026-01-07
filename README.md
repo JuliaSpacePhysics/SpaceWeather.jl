@@ -5,3 +5,17 @@
 [![Build Status](https://github.com/JuliaSpacePhysics/SpaceWeather.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaSpacePhysics/SpaceWeather.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/JuliaSpacePhysics/SpaceWeather.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/JuliaSpacePhysics/SpaceWeather.jl)
 [![Aqua](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
+
+## Features and Roadmap
+
+- [ ] Space Weather Indices
+- [ ] Space Weather Models
+- [ ] Space Weather Forecasts
+
+## Elsewhere
+
+- [NOAA / NWS Space Weather Prediction Center](https://www.swpc.noaa.gov/)
+- [SWx TREC Space Weather Data Portal](https://lasp.colorado.edu/space-weather-portal/): simultaneously displays diverse space weather data from the Sun to the Earth
+- [pyspaceweather](https://github.com/st-bender/pyspaceweather): Space weather indices for python
+- [pysatSpaceWeather](https://github.com/pysat/pysatSpaceWeather): pysat support for Space Weather Indices
+- [SpaceIndices.jl](https://github.com/JuliaSpace/SpaceIndices.jl): automatically fetch and parse space indices (Celestrak, JB2008 and Hpo)
