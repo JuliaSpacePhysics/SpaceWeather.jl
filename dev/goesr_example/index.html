@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>GOES-R XRS Example · SpaceWeather.jl</title><meta name="title" content="GOES-R XRS Example · SpaceWeather.jl"/><meta property="og:title" content="GOES-R XRS Example · SpaceWeather.jl"/><meta property="twitter:title" content="GOES-R XRS Example · SpaceWeather.jl"/><meta name="description" content="Documentation for SpaceWeather.jl."/><meta property="og:description" content="Documentation for SpaceWeather.jl."/><meta property="twitter:description" content="Documentation for SpaceWeather.jl."/><meta property="og:url" content="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr_example/"/><meta property="twitter:url" content="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr_example/"/><link rel="canonical" href="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr_example/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">SpaceWeather.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>GOES-R XRS Example</a><ul class="internal"><li><a class="tocitem" href="#Basic-Usage"><span>Basic Usage</span></a></li><li><a class="tocitem" href="#Plotting-Example"><span>Plotting Example</span></a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>GOES-R XRS Example</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>GOES-R XRS Example</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaSpacePhysics/SpaceWeather.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaSpacePhysics/SpaceWeather.jl/blob/main/docs/src/goesr_example.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Reading-and-Plotting-GOES-R-XRS-Data"><a class="docs-heading-anchor" href="#Reading-and-Plotting-GOES-R-XRS-Data">Reading and Plotting GOES-R XRS Data</a><a id="Reading-and-Plotting-GOES-R-XRS-Data-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-and-Plotting-GOES-R-XRS-Data" title="Permalink"></a></h1><p>Example for reading and plotting GOES-R EXIS X-ray sensor data</p><h2 id="Basic-Usage"><a class="docs-heading-anchor" href="#Basic-Usage">Basic Usage</a><a id="Basic-Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Usage" title="Permalink"></a></h2><pre><code class="language-julia hljs">using SpaceWeather
+using Dates
+
+# Download and load XRS data for a single day
+data = goesr_xrs(16, Date(2020, 6, 1))
+
+# Access X-ray flux data
+xrsa = data.xrsa_flux  # Short wavelength (0.05-0.4 nm)
+xrsb = data.xrsb_flux  # Long wavelength (0.1-0.8 nm)
+
+# Access timestamps
+times = data.time</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">1440-element Vector{Dates.DateTime}:
+ 2020-06-01T00:00:00
+ 2020-06-01T00:01:00
+ 2020-06-01T00:02:00
+ 2020-06-01T00:03:00
+ 2020-06-01T00:04:00
+ 2020-06-01T00:05:00
+ 2020-06-01T00:06:00
+ 2020-06-01T00:07:00
+ 2020-06-01T00:08:00
+ 2020-06-01T00:09:00
+ ⋮
+ 2020-06-01T23:51:00
+ 2020-06-01T23:52:00
+ 2020-06-01T23:53:00
+ 2020-06-01T23:54:00
+ 2020-06-01T23:55:00
+ 2020-06-01T23:56:00
+ 2020-06-01T23:57:00
+ 2020-06-01T23:58:00
+ 2020-06-01T23:59:00</code></pre><h2 id="Plotting-Example"><a class="docs-heading-anchor" href="#Plotting-Example">Plotting Example</a><a id="Plotting-Example-1"></a><a class="docs-heading-anchor-permalink" href="#Plotting-Example" title="Permalink"></a></h2><pre><code class="language-julia hljs">using CairoMakie
+
+axis = (;
+    yscale = log10,
+    xlabel = &quot;Time (UTC)&quot;,
+    ylabel = &quot;X-Ray Flux (W/m²)&quot;,
+)
+fap = plot(
+    data.time, data.xrsa_flux;
+    label = &quot;GOES-16 XRS-A (0.05-0.4 nm)&quot;,
+    color = :mediumorchid,
+    axis = axis
+)
+
+plot!(
+    data.time, identity.(data.xrsb_flux),
+    label = &quot;GOES-16 XRS-B (0.1-0.8 nm)&quot;,
+    color = :green,
+)
+fap</code></pre><img src="407a90a1.png" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Thursday 8 January 2026 04:42">Thursday 8 January 2026</span>. Using Julia version 1.12.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
