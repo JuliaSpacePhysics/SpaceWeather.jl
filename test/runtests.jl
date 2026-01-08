@@ -30,3 +30,8 @@ end
     result = Kp(t0, t1)
     @test length(result.time) == length(result)
 end
+
+@testset "GOES-R XRS data" begin
+    data = xrsa(16, Date(2020, 6, 1))
+    @test length(data.time) == length(data)
+end

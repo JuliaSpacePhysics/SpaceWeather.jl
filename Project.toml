@@ -3,6 +3,9 @@ uuid = "6e6210c8-0d11-4989-92a2-df0be76561ad"
 version = "1.0.0-DEV"
 authors = ["Beforerr <zzj956959688@gmail.com> and contributors"]
 
+[workspace]
+projects = ["test", "docs"]
+
 [deps]
 AxisKeys = "94b1ba4f-4ee9-5380-92f1-94cde586c3c5"
 CSV = "336ed68f-0bac-5ca0-87d4-7b16caf5d00b"
@@ -10,6 +13,7 @@ DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
+NCDatasets = "85f8d34a-cbdd-5861-8df4-14fed0d494ab"
 
 [compat]
 AxisKeys = "0.2"
@@ -18,4 +22,5 @@ DataFrames = "1.8"
 Dates = "1"
 DelimitedFiles = "1"
 Downloads = "1"
+NCDatasets = "0.14"
 julia = "1.10"

@@ -19,3 +19,4 @@
 - [pyspaceweather](https://github.com/st-bender/pyspaceweather): Space weather indices for python
 - [pysatSpaceWeather](https://github.com/pysat/pysatSpaceWeather): pysat support for Space Weather Indices
 - [SpaceIndices.jl](https://github.com/JuliaSpace/SpaceIndices.jl): automatically fetch and parse space indices (Celestrak, JB2008 and Hpo)
+- [GOES-R SPWX Examples](https://cires-stp.github.io/goesr-spwx-examples/index.html): 
