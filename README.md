@@ -8,7 +8,13 @@
 
 ## Features and Roadmap
 
-- [ ] Space Weather Indices
+- [ ] Space Weather Observations
+    - [ ] Space Weather Indices
+        - [x] Planetary K-index
+        - [ ] [Hpo indices of Global Geomagnetic Activity](https://www.gfz.de/en/hpo-index)
+    - [ ] Geostationary Operational Environmental Satellite (GOES)
+        - [x] GOES Extreme Ultraviolet and X-ray Irradiance Sensors (EXIS)
+        - [ ] GOES Solar Ultraviolet Imager (SUVI)
 - [ ] Space Weather Models
 - [ ] Space Weather Forecasts
 

@@ -94,7 +94,9 @@ data_2023 = celestrak(Date(2023,1,1), Date(2023,12,31))
 function celestrak(t0, t1; update = false)
     data = celestrak(; update)
     df = parent(data)
-    i0 = searchsortedfirst(df.DATE, Date(t0))
-    i1 = searchsortedlast(df.DATE, Date(t1))
+    i0 = searchsortedfirst(df.DATE, Date(_time(t0)))
+    i1 = searchsortedlast(df.DATE, Date(_time(t1)))
     return Celestrak(df[i0:i1, :])
 end
+
+_time(t) = DateTime(t)
