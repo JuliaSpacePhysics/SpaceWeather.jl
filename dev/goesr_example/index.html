@@ -1,473 +1,241 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>GOES-R XRS Example · SpaceWeather.jl</title><meta name="title" content="GOES-R XRS Example · SpaceWeather.jl"/><meta property="og:title" content="GOES-R XRS Example · SpaceWeather.jl"/><meta property="twitter:title" content="GOES-R XRS Example · SpaceWeather.jl"/><meta name="description" content="Documentation for SpaceWeather.jl."/><meta property="og:description" content="Documentation for SpaceWeather.jl."/><meta property="twitter:description" content="Documentation for SpaceWeather.jl."/><meta property="og:url" content="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr_example/"/><meta property="twitter:url" content="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr_example/"/><link rel="canonical" href="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr_example/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body>
-<!-- NAVBAR START -->
-<style>
-    html {
-        scroll-padding-top: calc(55px + 1rem);
-    }
-
-    /* Documenter css tweaks */
-    .docs-sidebar {
-        margin-top: 3.75rem;
-    }
-
-    #documenter {
-        margin-top: 3.75rem;
-    }
-
-    .docs-version-selector {
-        margin-bottom: 60px !important;
-    }
-
-    @media screen and (max-width: 1056px) {
-        .docs-version-selector {
-            margin-bottom: 60px !important;
-        }
-
-        .docs-sidebar {
-            margin-top: 0 !important;
-        }
-    }
-    /* Documenter css tweaks ends here */
-
-    :root {
-        --heading-color: white;
-        --item-color: rgb(165, 165, 165);
-        --primary-bg: #f8f9fa;  /* Light gray to match Quarto's default navbar */
-        --navbar-text: #212529;  /* Dark text color for better contrast */
-        --hover-color: #e9ecef;  /* Slightly darker gray for hover state */
-        --deprecated-bg: #ff4d4d;
-        --deprecated-text: white;
-    }
-
-    .ext-navigation {
-        position: fixed;
-        height: 3.75rem;
-        top: 0;
-        width: 100%;
-        background-color: var(--primary-bg);
-        color: var(--navbar-text);
-        z-index: 1000;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        display: flex;
-        align-items: center;
-        padding: 0 1.0625rem;
-        transition: transform 0.3s;
-    }
-
-    .ext-navbar-logo {
-        margin-left: 0.625rem;
-    }
-
-    .ext-nav-links {
-        display: flex;
-        align-items: center;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        flex-grow: 1;
-    }
-
-    .ext-nav-links li {
-        margin-left: 1rem !important;
-    }
-
-    .ext-nav-link {
-        color: var(--navbar-text) !important;
-        text-decoration: none;
-        font-size: 1.0625rem !important;
-        transition: color 0.2s ease;
-        cursor: pointer;
-    }
-
-    .ext-nav-link:hover,
-    .ext-navbar-item-single a:hover {
-        color: var(--hover-color) !important;
-        text-decoration: none !important;
-    }
-    
-    .ext-navigation a {
-        text-decoration: none !important;
-    }
-
-    .ext-navbar-item-single a {
-        color: var(--navbar-text) !important;
-    }
-
-    .ext-menu-toggle {
-        display: none;
-        font-size: 1.5rem;
-        color: white;
-        cursor: pointer;
-    }
-
-    .ext-dropdown {
-        display: none;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: auto auto auto;
-        padding: 1.875rem;
-        position: absolute;
-        width: 100%;
-        left: 0;
-        background-color: var(--primary-bg);
-        line-height: 1.875rem;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
-        transform: translateY(-0.625rem);
-    }
-
-    #library-handler::after {
-        content: "▼";
-        font-size: 0.6875rem;
-        margin-left: 0.3125rem;
-        transition: transform 0.3s ease-in-out;
-    }
-
-    #library-handler.open::after {
-        content: "▲";
-    }
-
-    .ext-dropdown.show {
-        display: grid;
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .ext-dropdown ul {
-        height: auto;
-        width: 12.5rem;
-        margin-bottom: 1.25rem;
-    }
-
-    .ext-dropdown ul li {
-        text-align: left;
-        display: flex;
-        align-items: center;
-    }
-
-    .navbar-sub-item {
-        list-style: none;
-    }
-
-    .ext-dropdown ul a li {
-        color: var(--item-color);
-        width: 15.625rem;
-        border-radius: 3px;
-        padding: 0.125rem 0.625rem;
-        transition: background-color 0.2s ease;
-        text-decoration: none !important;
-    }
-
-    .ext-dropdown ul a li:hover {
-        background-color: rgba(107, 107, 107, 0.5);
-    }
-
-    .ext-dropdown-item-heading {
-        /* color: var(--heading-color); */
-        text-align: center;
-    }
-
-    .deprecated-badge {
-        background-color: var(--deprecated-bg);
-        color: var(--deprecated-text);
-        font-size: 0.75rem;
-        padding: 0.125rem 0.375rem;
-        border-radius: 3px;
-        margin-left: 0.5rem;
-        line-height: 1;
-    }
-
-    /* Responsive styling */
-    @media (max-width: 966px) {
-        .ext-dropdown {
-            grid-template-columns: 1fr 1fr 1fr;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .ext-nav-links {
-            display: none;
-            flex-direction: column;
-            width: 100%;
-            background-color: var(--primary-bg);
-            position: absolute;
-            top: 3.75rem;
-            left: 0;
-            padding: 0.625rem 0;
-            height: auto;
-            overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: rgb(141, 141, 141) grey;
-        }
-
-        .ext-nav-links.show {
-            display: flex;
-        }
-
-        .ext-nav-links li {
-            margin: 0.625rem 0;
-            text-align: center;
-        }
-
-        .ext-menu-toggle {
-            display: block;
-            margin-left: auto;
-        }
-
-        .ext-navigation.hide {
-            transform: translateY(-3.75rem);
-        }
-
-        .ext-dropdown {
-            place-content: center;
-            text-align: center;
-            grid-template-columns: 1fr;
-            line-height: 1.25rem;
-            padding: 0.625rem;
-        }
-
-        .ext-dropdown ul {
-            width: 100%;
-            text-align: center;
-            margin-bottom: 0.3125rem;
-        }
-
-        .ext-dropdown ul li {
-            text-align: center;
-            /* justify-content: center; */
-        }
-
-        .ext-dropdown ul a li {
-            width: 100%;
-        }
-
-        .ext-dropdown ul a li:hover {
-            background-color: var(--primary-bg);
-            /* color: #fff; */
-        }
-
-        /* Modified scroll bar */
-        .ext-nav-links::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .ext-nav-links::-webkit-scrollbar-track {
-            box-shadow: inset 0 0 5px grey;
-        }
-
-        .ext-nav-links::-webkit-scrollbar-thumb {
-            background: rgb(141, 141, 141);
-            border-radius: 3px;
-        }
-
-        .ext-nav-links::-webkit-scrollbar-thumb:hover {
-            background: #9b9b9b;
-        }
-    }
-</style>
-<nav class="ext-navigation">
-    <a href="https://juliaspacephysics.github.io"></a>
-    <a style="color: #212529 !important; font-size: 21.25px !important; margin-left: 10px;" href="https://juliaspacephysics.github.io">JuliaSpacePhysics</a>
-    <ul class="ext-nav-links">
-        <li>
-            <p class="ext-nav-link" id="library-handler">Ecosystem</p>
-            <div class="ext-dropdown" id="ext-dropdown-items">
-                <ul>
-                    <li class="ext-dropdown-item-heading">Core</li>
-                    <a href="https://juliaspacephysics.github.io/SPEDAS.jl"><li>SPEDAS.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/SpaceDataModel.jl"><li>SpaceDataModel.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/GeoCotrans.jl"><li>GeoCotrans.jl</li></a>
-                    <a href="https://henry2004y.github.io/TestParticle.jl/"><li>TestParticle.jl</li></a>
-                </ul>
-                <ul>
-                    <li class="ext-dropdown-item-heading">Data</li>
-                    <a href="https://juliaspacephysics.github.io/CDFDatasets.jl/"><li>CDFDatasets.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/CDAWeb.jl/"><li>CDAWeb.jl</li></a>
-                    <a href="https://sciqlop.github.io/Speasy.jl/"><li>Speasy.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/HAPIClient.jl/"><li>HAPIClient.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/Madrigal.jl/"><li>Madrigal.jl</li></a>
-                    <a href="https://github.com/JuliaSpacePhysics/PySPEDAS.jl"><li>PySPEDAS.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/CommonDataFormat.jl/"><li>CommonDataFormat.jl</li></a>
-                </ul>
-                <ul>
-                    <li class="ext-dropdown-item-heading">Domain</li>
-                    <a href="https://juliaspacephysics.github.io/SolarEnergeticParticle.jl/dev/"><li>SolarEnergeticParticle.jl (Helio)</li></a>
-                    <a href="https://juliaspacephysics.github.io/GeoAACGM.jl"><li>GeoAACGM.jl (ITM)</li></a>
-                    <a href="https://juliaspacephysics.github.io/IRBEM.jl"><li>IRBEM.jl (Magnetosphere)</li></a>
-                </ul>
-                <!-- Enable when more mission-specific packages are available -->
-                <ul>
-                    <li class="ext-dropdown-item-heading">Mission-specific</li>
-                    <a href="https://juliaspacephysics.github.io/EISCATData.jl"><li>EISCATData.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/ELFINData.jl"><li>ELFINData.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/DMSPData.jl"><li>DMSPData.jl</li></a>
-                </ul>
-               
-                <ul>
-                    <li class="ext-dropdown-item-heading">General Analysis</li>
-                    <a href="https://juliaplasma.github.io/PlasmaFormulary.jl"><li>JuliaPlasma/PlasmaFormulary.jl</li></a>
-                    <a href="https://juliaplasma.github.io/ChargedParticles.jl"><li>JuliaPlasma/ChargedParticles.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/VelocityDistributionFunctions.jl"><li>VelocityDistributionFunctions.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/PlasmaWaves.jl"><li>PlasmaWaves.jl</li></a>
-                    <a href="https://juliaspacephysics.github.io/PlasmaBO.jl"><li>PlasmaBO.jl</li></a>
-                    <a href="https://github.com/JuliaSpacePhysics/SpacePhysicsMakie.jl"><li>SpacePhysicsMakie.jl</li></a>
-                </ul>
-            </div>
-        </li>
-        <li><a href="https://juliaspacephysics.github.io/tutorials/">Tutorials</a></li>
-    </ul>
-    <a href="https://github.com/JuliaSpacePhysics">
-        <svg width="32px" height="32px" viewBox="-8.2 -8.2 36.40 36.40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-            <g id="SVGRepo_iconCarrier">
-                <title>github [#142]</title>
-                <desc>JuliaSpacePhysics</desc>
-                <defs></defs>
-                <g id="Page-1" stroke-width="0.0002" fill="none" fill-rule="evenodd">
-                    <g id="Dribbble-Light-Preview" transform="translate(-140.000000, -7559.000000)" fill="#ffffff">
-                        <g id="icons" transform="translate(56.000000, 160.000000)">
-                            <path
-                                d="M94,7399 C99.523,7399 104,7403.59 104,7409.253 C104,7413.782 101.138,7417.624 97.167,7418.981 C96.66,7419.082 96.48,7418.762 96.48,7418.489 C96.48,7418.151 96.492,7417.047 96.492,7415.675 C96.492,7414.719 96.172,7414.095 95.813,7413.777 C98.04,7413.523 100.38,7412.656 100.38,7408.718 C100.38,7407.598 99.992,7406.684 99.35,7405.966 C99.454,7405.707 99.797,7404.664 99.252,7403.252 C99.252,7403.252 98.414,7402.977 96.505,7404.303 C95.706,7404.076 94.85,7403.962 94,7403.958 C93.15,7403.962 92.295,7404.076 91.497,7404.303 C89.586,7402.977 88.746,7403.252 88.746,7403.252 C88.203,7404.664 88.546,7405.707 88.649,7405.966 C88.01,7406.684 87.619,7407.598 87.619,7408.718 C87.619,7412.646 89.954,7413.526 92.175,7413.785 C91.889,7414.041 91.63,7414.493 91.54,7415.156 C90.97,7415.418 89.522,7415.871 88.63,7414.304 C88.63,7414.304 88.101,7413.319 87.097,7413.247 C87.097,7413.247 86.122,7413.234 87.029,7413.87 C87.029,7413.87 87.684,7414.185 88.139,7415.37 C88.139,7415.37 88.726,7417.2 91.508,7416.58 C91.513,7417.437 91.522,7418.245 91.522,7418.489 C91.522,7418.76 91.338,7419.077 90.839,7418.982 C86.865,7417.627 84,7413.783 84,7409.253 C84,7403.59 88.478,7399 94,7399"
-                                id="github-[#142]">
-                            </path>
-                        </g>
-                    </g>
-                </g>
-            </g>
-        </svg>
-    </a>
-    <span class="ext-menu-toggle">&#9776;</span>
-</nav>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const menuToggle = document.querySelector(".ext-menu-toggle");
-        const navLinks = document.querySelector(".ext-nav-links");
-        const nav = document.querySelector(".ext-navigation");
-        const navigationHandler = document.getElementById("library-handler");
-        const navigationItemsContainer =
-            document.getElementById("ext-dropdown-items");
-        let lastScrollY = window.scrollY;
-
-        function setAppropriateHeight() {
-            if (window.innerWidth <= 768) {
-                const viewportHeight = window.innerHeight;
-                const navHeight = nav.offsetHeight;
-                navLinks.style.maxHeight = `${viewportHeight - navHeight}px`;
-                navLinks.style.overflowY = "auto";
-            } else {
-                navLinks.style.maxHeight = "";
-                navLinks.style.overflowY = "";
-            }
-        }
-
-        // Toggle main menu for mobile
-        menuToggle.addEventListener("click", () => {
-            navLinks.classList.toggle("show");
-            if (navLinks.classList.contains("show")) {
-                setAppropriateHeight();
-                // Ensure the dropdown is hidden when menu is first opened
-                navigationItemsContainer.style.display = "none";
-                navigationItemsContainer.classList.remove("show");
-            }
-        });
-
-        // Close menus if clicked outside
-        document.addEventListener("click", (event) => {
-            if (
-                !navLinks.contains(event.target) &&
-                !menuToggle.contains(event.target)
-            ) {
-                navLinks.classList.remove("show");
-                navigationItemsContainer.classList.remove("show");
-                navigationHandler.classList.remove("open");
-            }
-        });
-
-        // Hide navigation bar on scroll down in mobile view
-        window.addEventListener("scroll", () => {
-            if (window.innerWidth <= 768) {
-                nav.classList.toggle("hide", window.scrollY > lastScrollY);
-                lastScrollY = window.scrollY;
-            }
-        });
-
-        // Library API script
-        navigationHandler.addEventListener("click", (event) => {
-            event.preventDefault(); // Prevent default action of the link
-            if (navigationItemsContainer.classList.contains("show")) {
-                navigationItemsContainer.classList.remove("show");
-                navigationHandler.classList.remove("open");
-                setTimeout(() => {
-                    navigationItemsContainer.style.display = "none";
-                }, 500); // Match the timeout to the CSS transition duration
-            } else {
-                navigationItemsContainer.style.display = "grid";
-                navigationHandler.classList.add("open");
-                setTimeout(() => {
-                    navigationItemsContainer.classList.add("show");
-                }, 10); // Delay to ensure the display change takes effect before adding class
-            }
-            setAppropriateHeight(); // Recalculate height when dropdown changes
-        });
-
-        // Handle window resize
-        window.addEventListener("resize", setAppropriateHeight);
-
-        // Initial setup
-        setAppropriateHeight();
-    });
-</script>
-<!-- NAVBAR END -->
-
-<div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">SpaceWeather.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>GOES-R XRS Example</a><ul class="internal"><li><a class="tocitem" href="#Basic-Usage"><span>Basic Usage</span></a></li><li><a class="tocitem" href="#Plotting-Example"><span>Plotting Example</span></a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>GOES-R XRS Example</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>GOES-R XRS Example</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaSpacePhysics/SpaceWeather.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaSpacePhysics/SpaceWeather.jl/blob/main/docs/src/goesr_example.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Reading-and-Plotting-GOES-R-XRS-Data"><a class="docs-heading-anchor" href="#Reading-and-Plotting-GOES-R-XRS-Data">Reading and Plotting GOES-R XRS Data</a><a id="Reading-and-Plotting-GOES-R-XRS-Data-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-and-Plotting-GOES-R-XRS-Data" title="Permalink"></a></h1><p>Example for reading and plotting GOES-R EXIS X-ray sensor data</p><h2 id="Basic-Usage"><a class="docs-heading-anchor" href="#Basic-Usage">Basic Usage</a><a id="Basic-Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Usage" title="Permalink"></a></h2><pre><code class="language-julia hljs">using SpaceWeather
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>GOES-R XRS Example · SpaceWeather.jl</title><meta name="title" content="GOES-R XRS Example · SpaceWeather.jl"/><meta property="og:title" content="GOES-R XRS Example · SpaceWeather.jl"/><meta property="twitter:title" content="GOES-R XRS Example · SpaceWeather.jl"/><meta name="description" content="Documentation for SpaceWeather.jl."/><meta property="og:description" content="Documentation for SpaceWeather.jl."/><meta property="twitter:description" content="Documentation for SpaceWeather.jl."/><meta property="og:url" content="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr_example/"/><meta property="twitter:url" content="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr_example/"/><link rel="canonical" href="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr_example/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">SpaceWeather.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>GOES-R XRS Example</a><ul class="internal"><li><a class="tocitem" href="#Basic-Usage"><span>Basic Usage</span></a></li><li><a class="tocitem" href="#Plotting-Example"><span>Plotting Example</span></a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>GOES-R XRS Example</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>GOES-R XRS Example</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaSpacePhysics/SpaceWeather.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaSpacePhysics/SpaceWeather.jl/blob/main/docs/src/goesr_example.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Reading-and-Plotting-GOES-R-XRS-Data"><a class="docs-heading-anchor" href="#Reading-and-Plotting-GOES-R-XRS-Data">Reading and Plotting GOES-R XRS Data</a><a id="Reading-and-Plotting-GOES-R-XRS-Data-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-and-Plotting-GOES-R-XRS-Data" title="Permalink"></a></h1><p>Example for reading and plotting GOES-R EXIS X-ray sensr data</p><h2 id="Basic-Usage"><a class="docs-heading-anchor" href="#Basic-Usage">Basic Usage</a><a id="Basic-Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Usage" title="Permalink"></a></h2><pre><code class="language-julia hljs">using SpaceWeather
 using Dates
 
 # Download and load XRS data for a single day
-data = goesr_xrs(16, Date(2020, 6, 1))
+xrs = XRS(16, Date(2020, 6, 1))
 
 # Access X-ray flux data
-xrsa = data.xrsa_flux  # Short wavelength (0.05-0.4 nm)
-xrsb = data.xrsb_flux  # Long wavelength (0.1-0.8 nm)
+xrsa = xrs[&quot;xrsa_flux&quot;]  # Short wavelength (0.05-0.4 nm)
+xrsb = xrs[&quot;xrsb_flux&quot;]  # Long wavelength (0.1-0.8 nm)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr32">xrsb_flux</span> (1440)
+  Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+  Dimensions:  time
+  Attributes:
+   long_name            = <span class="sgr36">XRS-B primary average flux.</span>
+   comments             = <span class="sgr36">Electron contamination has been removed. xrsb_flux =  xrsb_flux_observed - xrsb_flux_electrons</span>
+   units                = <span class="sgr36">W/m2</span>
+   _FillValue           = <span class="sgr36">-9999.0</span>
+   valid_min            = <span class="sgr36">1.0e-9</span>
+   valid_max            = <span class="sgr36">0.2</span>
+   ancillary_variables  = <span class="sgr36">xrsb_flag xrsb_num xrsb_flag_excluded</span>
+</code></pre><pre><code class="language-julia hljs"># load Magnetospheric Particle Sensor High (MPS-HI)
+mpsh_ds = SpaceWeather.MPSH(16, Date(2020, 6, 1))
+var = mpsh_ds[&quot;AvgDiffProtonFlux&quot;]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr32">AvgDiffProtonFlux</span> (11 × 5 × 1440)
+  Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+  Dimensions:  proton_diff_chans × telescopes × time
+  Attributes:
+   long_name            = <span class="sgr36">Time-averaged proton fluxes in several differential channels between 80 and 10,000 keV</span>
+   units                = <span class="sgr36">protons/(cm^2 sr keV s)</span>
+   _FillValue           = <span class="sgr36">-1.0e31</span>
+   valid_min            = <span class="sgr36">0.0</span>
+   valid_max            = <span class="sgr36">460000.0</span>
+</code></pre><pre><code class="language-julia hljs"># load MAG Data
+mag_ds = SpaceWeather.MAG(16, Date(2020, 6, 1))</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr31">Dataset: /home/runner/.julia/spaceweather/platforms/solar-space-observing-satellites/goes/goes16/l2/data/magn-l2-avg1m/2020/06/dn_magn-l2-avg1m_g16_d20200601_v2-0-2.nc</span>
+Group: /
 
-# Access timestamps
-times = data.time</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">1440-element Vector{Dates.DateTime}:
- 2020-06-01T00:00:00
- 2020-06-01T00:01:00
- 2020-06-01T00:02:00
- 2020-06-01T00:03:00
- 2020-06-01T00:04:00
- 2020-06-01T00:05:00
- 2020-06-01T00:06:00
- 2020-06-01T00:07:00
- 2020-06-01T00:08:00
- 2020-06-01T00:09:00
- ⋮
- 2020-06-01T23:51:00
- 2020-06-01T23:52:00
- 2020-06-01T23:53:00
- 2020-06-01T23:54:00
- 2020-06-01T23:55:00
- 2020-06-01T23:56:00
- 2020-06-01T23:57:00
- 2020-06-01T23:58:00
- 2020-06-01T23:59:00</code></pre><h2 id="Plotting-Example"><a class="docs-heading-anchor" href="#Plotting-Example">Plotting Example</a><a id="Plotting-Example-1"></a><a class="docs-heading-anchor-permalink" href="#Plotting-Example" title="Permalink"></a></h2><pre><code class="language-julia hljs">using CairoMakie
+<span class="sgr31">Dimensions</span>
+   time = 1440
+   coordinate = 3
 
-axis = (;
-    yscale = log10,
-    xlabel = &quot;Time (UTC)&quot;,
-    ylabel = &quot;X-Ray Flux (W/m²)&quot;,
-)
-fap = plot(
-    data.time, data.xrsa_flux;
-    label = &quot;GOES-16 XRS-A (0.05-0.4 nm)&quot;,
-    color = :mediumorchid,
-    axis = axis
-)
+<span class="sgr31">Variables</span>
+<span class="sgr32">  b_eci</span>   (3 × 1440)
+    Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+    Dimensions:  coordinate × time
+    Attributes:
+     _FillValue           = <span class="sgr36">-9999.0</span>
+     long_name            = <span class="sgr36">magnetic_field_earth_centered_inertial</span>
+     comments             = <span class="sgr36">Estimated ambient magnetic field in Earth Centered Inertial coordinates (x, y, z).</span>
+     units                = <span class="sgr36">nT</span>
+     valid_min            = <span class="sgr36">-1024.0</span>
+     valid_max            = <span class="sgr36">1024.0</span>
 
-plot!(
-    data.time, identity.(data.xrsb_flux),
-    label = &quot;GOES-16 XRS-B (0.1-0.8 nm)&quot;,
-    color = :green,
-)
-fap</code></pre><img src="407a90a1.png" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Thursday 8 January 2026 04:45">Thursday 8 January 2026</span>. Using Julia version 1.12.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+<span class="sgr32">  b_epn</span>   (3 × 1440)
+    Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+    Dimensions:  coordinate × time
+    Attributes:
+     _FillValue           = <span class="sgr36">-9999.0</span>
+     long_name            = <span class="sgr36">magnetic_field_earth_poleward_normal</span>
+     comments             = <span class="sgr36">Estimated ambient magnetic field in EPN coordinates (E, P, N). E: earthward, P: perpendicular to orbital plane, N: ExP.</span>
+     units                = <span class="sgr36">nT</span>
+     valid_min            = <span class="sgr36">-1024.0</span>
+     valid_max            = <span class="sgr36">1024.0</span>
+
+<span class="sgr32">  b_gse</span>   (3 × 1440)
+    Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+    Dimensions:  coordinate × time
+    Attributes:
+     _FillValue           = <span class="sgr36">-9999.0</span>
+     long_name            = <span class="sgr36">magnetic_field_geocentric_solar_ecliptic</span>
+     comments             = <span class="sgr36">Estimated ambient magnetometer data in Geocentric Solar Ecliptic coordinates (x, y, z).</span>
+     units                = <span class="sgr36">nT</span>
+     valid_min            = <span class="sgr36">-1024.0</span>
+     valid_max            = <span class="sgr36">1024.0</span>
+
+<span class="sgr32">  b_gsm</span>   (3 × 1440)
+    Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+    Dimensions:  coordinate × time
+    Attributes:
+     _FillValue           = <span class="sgr36">-9999.0</span>
+     long_name            = <span class="sgr36">magnetic_field_geocentric_solar_magnetospheric</span>
+     comments             = <span class="sgr36">Estimated ambient magnetometer data in Geocentric Solar Magnetospheric coordinates (x, y, z).</span>
+     units                = <span class="sgr36">nT</span>
+     valid_min            = <span class="sgr36">-1024.0</span>
+     valid_max            = <span class="sgr36">1024.0</span>
+
+<span class="sgr32">  b_brf</span>   (3 × 1440)
+    Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+    Dimensions:  coordinate × time
+    Attributes:
+     _FillValue           = <span class="sgr36">-9999.0</span>
+     long_name            = <span class="sgr36">magnetic_field_body_reference_frame</span>
+     comments             = <span class="sgr36">Estimated ambient magnetic field in Body Reference Frame coordinates (x, y, z). This frame orients the magnetometer to the SEISS.</span>
+     units                = <span class="sgr36">nT</span>
+     valid_min            = <span class="sgr36">-1024.0</span>
+     valid_max            = <span class="sgr36">1024.0</span>
+
+<span class="sgr32">  b_vdh</span>   (3 × 1440)
+    Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+    Dimensions:  coordinate × time
+    Attributes:
+     _FillValue           = <span class="sgr36">-9999.0</span>
+     long_name            = <span class="sgr36">magnetic_field_local_magnetic</span>
+     comments             = <span class="sgr36">Estimated ambient magnetometer data in VDH coordinates (V, D, H). V: anti-earthward, D: eastward, H: northward along dipole.</span>
+     units                = <span class="sgr36">nT</span>
+     valid_min            = <span class="sgr36">-1024.0</span>
+     valid_max            = <span class="sgr36">1024.0</span>
+
+<span class="sgr32">  b_total</span>   (1440)
+    Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+    Dimensions:  time
+    Attributes:
+     _FillValue           = <span class="sgr36">-9999.0</span>
+     long_name            = <span class="sgr36">magnetic_field_total_magnitude</span>
+     comments             = <span class="sgr36">Estimated ambient magnetic field in ACRF coordinates (total).</span>
+     units                = <span class="sgr36">nT</span>
+     valid_min            = <span class="sgr36">0.0</span>
+     valid_max            = <span class="sgr36">1024.0</span>
+
+<span class="sgr32">  num_points</span>   (1440)
+    Datatype:    <span class="sgr1">Union{Missing, UInt16}</span> (UInt16)
+    Dimensions:  time
+    Attributes:
+     _FillValue           = <span class="sgr36">65535</span>
+     long_name            = <span class="sgr36">number_of_points_in_average</span>
+     comments             = <span class="sgr36">Number of points used in average.</span>
+
+<span class="sgr32">  b_quality</span>   (1440)
+    Datatype:    <span class="sgr1">Union{Missing, UInt8}</span> (UInt8)
+    Dimensions:  time
+    Attributes:
+     _FillValue           = <span class="sgr36">255</span>
+     long_name            = <span class="sgr36">quality_magnetic_field_measurement</span>
+     comments             = <span class="sgr36">Summary quality flag, applies to all coordinate frames.</span>
+     flag_values          = <span class="sgr36">UInt8[0x00, 0x01, 0x02]</span>
+     flag_meanings        = <span class="sgr36">good degraded bad</span>
+
+<span class="sgr32">  orbit_llr_geo</span>   (3 × 1440)
+    Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+    Dimensions:  coordinate × time
+    Attributes:
+     _FillValue           = <span class="sgr36">-9999.0</span>
+     long_name            = <span class="sgr36">orbit_geocentric_latitude_longitude_radius</span>
+     comments             = <span class="sgr36">Spacecraft location (lat,lon, radial distance).</span>
+     units                = <span class="sgr36">degrees, degrees, meters</span>
+
+<span class="sgr32">  time</span>   (1440)
+    Datatype:    <span class="sgr1">Union{Missing, Dates.DateTime}</span> (Float64)
+    Dimensions:  time
+    Attributes:
+     _FillValue           = <span class="sgr36">-9999.0</span>
+     long_name            = <span class="sgr36">timestamp</span>
+     comments             = <span class="sgr36">Timestamp of measurement in seconds since the J2K epoch.</span>
+     units                = <span class="sgr36">seconds since 2000-01-01 12:00:00</span>
+
+<span class="sgr32">  coordinate</span>   (3)
+    Datatype:    <span class="sgr1">Union{Missing, UInt8}</span> (UInt8)
+    Dimensions:  coordinate
+    Attributes:
+     _FillValue           = <span class="sgr36">255</span>
+     comments             = <span class="sgr36">Coordinates [0,1,2] represents (x, y, z).</span>
+     valid_min            = <span class="sgr36">0</span>
+     valid_max            = <span class="sgr36">2</span>
+
+<span class="sgr32">  DQF</span>   (1440)
+    Datatype:    <span class="sgr1">Union{Missing, UInt32}</span> (UInt32)
+    Dimensions:  time
+    Attributes:
+     _FillValue           = <span class="sgr36">4294967295</span>
+     flag_meanings        = <span class="sgr36">good_quality_qf invalid_due_to_missing_L0_IB_and_OB_MAG_data_qf degraded_due_to_IB_MAG_x-axis_potential_failure_or_off_state_or_IB_mag_potentially_in_maintenance_mode_qf degraded_due_to_IB_MAG_y-axis_potential_failure_or_off_state_or_IB_mag_potentially_in_maintenance_mode_qf degraded_due_to_IB_MAG_z-axis_potential_failure_or_off_state_or_IB_mag_potentially_in_maintenance_mode_qf degraded_due_to_OB_MAG_x-axis_potential_failure_or_off_state_or_OB_mag_potentially_in_maintenance_mode_qf degraded_due_to_OB_MAG_y-axis_potential_failure_or_off_state_or_OB_mag_potentially_in_maintenance_mode_qf degraded_due_to_OB_MAG_z-axis_potential_failure_or_off_state_or_OB_mag_potentially_in_maintenance_mode_qf degraded_due_to_IB_MAG_x-axis_magnetic_field_at_saturation_qf degraded_due_to_IB_MAG_y-axis_magnetic_field_at_saturation_qf degraded_due_to_IB_MAG_z-axis_magnetic_field_at_saturation_qf degraded_due_to_OB_MAG_x-axis_magnetic_field_at_saturation_qf degraded_due_to_OB_MAG_y-axis_magnetic_field_at_saturation_qf degraded_due_to_OB_MAG_z-axis_magnetic_field_at_saturation_qf degraded_due_to_MAG_calibration_maneuver_in_progress_qf degraded_due_to_potentially_stale_MAG_engineering_data_qf potentially_degraded_due_to_out_of_valid_range_IB_MAG_x-axis_thermistor_temperature_qf potentially_degraded_due_to_out_of_valid_range_IB_MAG_y-axis_thermistor_temperature_qf potentially_degraded_due_to_out_of_valid_range_IB_MAG_z-axis_thermistor_temperature_qf potentially_degraded_due_to_out_of_valid_range_OB_MAG_x-axis_thermistor_temperature_qf potentially_degraded_due_to_out_of_valid_range_OB_MAG_y-axis_thermistor_temperature_qf potentially_degraded_due_to_out_of_valid_range_OB_MAG_z-axis_thermistor_temperature_qf potentially_degraded_due_to_out_of_valid_range_IB_electronics_temperature_qf potentially_degraded_due_to_out_of_valid_range_OB_electronics_temperature_qf potentially_degraded_due_to_IB_MAG_in_shadow_qf potentially_degraded_due_to_arcjet_firing_qf valid_arcjet_correction_qf</span>
+     flag_values          = <span class="sgr36">UInt32[0x00000000, 0x00000001, 0x00000002, 0x00000004, 0x00000008, 0x00000010, 0x00000020, 0x00000040, 0x00000080, 0x00000100, 0x00000200, 0x00000400, 0x00000800, 0x00001000, 0x00002000, 0x00004000, 0x00008000, 0x00010000, 0x00020000, 0x00040000, 0x00080000, 0x00100000, 0x00200000, 0x00400000, 0x00800000, 0x01000000, 0x02000000]</span>
+     flag_masks           = <span class="sgr36">UInt32[0x01ffffff, 0x00000001, 0x00000002, 0x00000004, 0x00000008, 0x00000010, 0x00000020, 0x00000040, 0x00000080, 0x00000100, 0x00000200, 0x00000400, 0x00000800, 0x00001000, 0x00002000, 0x00004000, 0x00008000, 0x00010000, 0x00020000, 0x00040000, 0x00080000, 0x00100000, 0x00200000, 0x00400000, 0x00800000, 0x01000000, 0x02000000]</span>
+
+<span class="sgr31">Global attributes</span>
+  Conventions          = <span class="sgr36">ACDD-1.3, Spase v2.2.6</span>
+  title                = <span class="sgr36">L2 Magnetometer (MAG) Geomagnetic Field 1-minute Averages Product with Complete Coordinate Frames</span>
+  summary              = <span class="sgr36">The GOES-R spacecraft includes a pair of fluxgate magnetometer instruments which operate simultaneously to obtain measurements of the geomagnetic field. The Magnetometer Subsystem supports the following mission objectives: 1) Map the space environment that controls charged particle dynamics in the outer region of the magnetosphere, 2) Measure the magnitude and direction of the Earths &#39;ambient magnetic field in three orthogonal directions in the geosynchronous equatorial orbit, 3) Determine general level of geomagnetic activity, and 4) Detect magnetopause crossings, storm sudden commencements, and substorms. The one-minute averages product described in this file includes the magnetometer observations in several coordinate systems.</span>
+  keywords             = <span class="sgr36">SPASE: NumericalData.ObservedRegion.Earth.Magnetosphere, SPASE:  NumericalData.MeasurementType.MagneticField, GCMD: Earth Science &gt;&gt; Sun-Earth Interactions &gt;&gt; Ionosphere/Magnetosphere Dynamics &gt;&gt; Magnetic Fields/Magnetic Currents</span>
+  keywords_vocabulary  = <span class="sgr36">SPASE: Space Physics Archive Search and Extract Data Model version 2.2.6, GCMD: NASA Global Change Master Directory (GCMD) Earth Science Keywords version 8.5</span>
+  naming_authority     = <span class="sgr36">gov.nesdis.noaa</span>
+  history              = <span class="sgr36">See algorithm information.</span>
+  source               = <span class="sgr36">GOES-R Magnetometer L2</span>
+  processing_level     = <span class="sgr36">Level 2</span>
+  processing_level_description = <span class="sgr36">Derived products</span>
+  license              = <span class="sgr36">These data may be redistributed and used without restriction. </span>
+  acknowledgment       = <span class="sgr36">NOAA Proposal GOESR3_205</span>
+  metadata_link        = <span class="sgr36">https://doi.org/10.25921/H2TQ-PC59</span>
+  creator_name         = <span class="sgr36">Paul Loto&#39;aniu, Rob Redmon</span>
+  creator_type         = <span class="sgr36">person</span>
+  creator_institution  = <span class="sgr36">DOC/NOAA/NCEI/CCOG/STP</span>
+  creator_email        = <span class="sgr36">goesr.mag@noaa.gov</span>
+  creator_url          = <span class="sgr36">https://www.ncei.noaa.gov/</span>
+  institution          = <span class="sgr36">DOC/NOAA/NESDIS&gt; U.S. Department of Commerce, National Oceanic and Atmospheric Administration, National Environmental Satellite, Data, and Information Services</span>
+  publisher_name       = <span class="sgr36">National Centers for Environmental Information</span>
+  publisher_type       = <span class="sgr36">institution</span>
+  publisher_institution = <span class="sgr36">DOC/NOAA/NESDIS/NCEI</span>
+  publisher_email      = <span class="sgr36">goesr.mag@noaa.gov</span>
+  publisher_url        = <span class="sgr36">https://www.ncei.noaa.gov/</span>
+  references           = <span class="sgr36">MAGNETOMETER TIMES SERIES AVERAGES ALGORITHM THEORETICAL BASIS DOCUMENT Version 1.3</span>
+  instrument           = <span class="sgr36">GOES R Series Magnetometer (MAG)</span>
+  program              = <span class="sgr36">Geostationary Operational Environmental Satellite, R-Series (GOES-R)</span>
+  project              = <span class="sgr36">Geostationary Operational Environmental Satellite R-Series (GOES-R) Core Ground Segment, Satellite Product Analysis and Distribution System (SPADES)</span>
+  time_coverage_resolution = <span class="sgr36">PT1M</span>
+  processing_parameters_file = <span class="sgr36"> </span>
+  algorithm_parameters = <span class="sgr36">None</span>
+  id                   = <span class="sgr36">dn_magn-l2-avg1m_g16_d20200601_v2-0-2.nc</span>
+  date_created         = <span class="sgr36">2020-06-08T12:08:05.474Z</span>
+  instrument_id        = <span class="sgr36"> </span>
+  orbital_slot         = <span class="sgr36">GOES-East</span>
+  platform             = <span class="sgr36">g16</span>
+  L1b_system_environment = <span class="sgr36">OE</span>
+  L1b_production_site  = <span class="sgr36">WCDAS</span>
+  time_coverage_start  = <span class="sgr36">2020-06-01T00:00:00.000Z</span>
+  time_coverage_end    = <span class="sgr36">2020-06-02T00:00:00.000Z</span>
+  algorithm            = <span class="sgr36">cli-mag08_avg</span>
+  algorithm_version    = <span class="sgr36">[2, 2]</span>
+  algorithm_date       = <span class="sgr36">2018-06-07</span>
+  input_system_environments = <span class="sgr36">dn</span>
+  input_files_first    = <span class="sgr36">dn_magn-l2-hires_g16_d20200601_v1-0-1.nc</span>
+  input_files_last     = <span class="sgr36">dn_magn-l2-hires_g16_d20200601_v1-0-1.nc</span>
+  input_files_total    = <span class="sgr36">1</span>
+  L1b_LUT_Filenames    = <span class="sgr36">MAG_CALINR_Parameters(FM1A_MAGN03RevN_PR_09_00_02)-637827000.0.h5</span>
+</code></pre><h2 id="Plotting-Example"><a class="docs-heading-anchor" href="#Plotting-Example">Plotting Example</a><a id="Plotting-Example-1"></a><a class="docs-heading-anchor-permalink" href="#Plotting-Example" title="Permalink"></a></h2><pre><code class="language-julia hljs">using CairoMakie
+
+f = Figure()
+ax1 = Axis(f[1, 1]; yscale = log10, xlabel = &quot;Time (UTC)&quot;, ylabel = &quot;X-Ray Flux\n($(xrsa.attrib[&quot;units&quot;]))&quot;)
+times = nomissing(xrs[&quot;time&quot;][:])
+lines!(ax1, times, nomissing(xrsa[:]); label = &quot;GOES-16 XRS-A (0.05-0.4 nm)&quot;, color = :mediumorchid)
+lines!(ax1, times, nomissing(xrsb[:]); label = &quot;GOES-16 XRS-B (0.1-0.8 nm)&quot;, color = :green)
+
+# Plot 1 day of MPSH 1-minute AvgDiffProtonFlux in Telescope 0, Band 0
+var = mpsh_ds[&quot;AvgDiffProtonFlux&quot;]
+ax2 = Axis(f[2, 1]; yscale = log10, xlabel = &quot;Time (UTC)&quot;, ylabel = &quot;AvgDiffProtonFlux\n($(var.attrib[&quot;units&quot;]))&quot;)
+times = nomissing(mpsh_ds[&quot;time&quot;][:])
+lines!(ax2, times, var[1, 1, :])
+
+var = mag_ds[&quot;b_total&quot;]
+ax3 = Axis(f[3, 1]; ylabel = &quot;b_total\n($(var.attrib[&quot;units&quot;]))&quot;)
+times = nomissing(mag_ds[&quot;time&quot;][:])
+lines!(ax3, times, var[:])
+
+hidexdecorations!.((ax1, ax2); grid = false)
+f</code></pre><img src="3d7b6104.png" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Saturday 10 January 2026 19:08">Saturday 10 January 2026</span>. Using Julia version 1.12.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
