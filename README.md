@@ -13,8 +13,10 @@
         - [x] Planetary K-index
         - [ ] [Hpo indices of Global Geomagnetic Activity](https://www.gfz.de/en/hpo-index)
     - [ ] Geostationary Operational Environmental Satellite (GOES)
-        - [x] GOES Extreme Ultraviolet and X-ray Irradiance Sensors (EXIS)
-        - [ ] GOES Solar Ultraviolet Imager (SUVI)
+        - [x] Extreme Ultraviolet and X-ray Irradiance Sensors (EXIS)
+        - [x] Space Environment In Situ Suite (SEISS)
+        - [x] Magnetometer
+        - [ ] Solar Ultraviolet Imager (SUVI)
 - [ ] Space Weather Models
 - [ ] Space Weather Forecasts
 
@@ -25,4 +27,4 @@
 - [pyspaceweather](https://github.com/st-bender/pyspaceweather): Space weather indices for python
 - [pysatSpaceWeather](https://github.com/pysat/pysatSpaceWeather): pysat support for Space Weather Indices
 - [SpaceIndices.jl](https://github.com/JuliaSpace/SpaceIndices.jl): automatically fetch and parse space indices (Celestrak, JB2008 and Hpo)
-- [GOES-R SPWX Examples](https://cires-stp.github.io/goesr-spwx-examples/index.html): 
+- [GOES-R SPWX Examples](https://cires-stp.github.io/goesr-spwx-examples/index.html)

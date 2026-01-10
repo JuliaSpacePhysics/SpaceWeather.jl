@@ -1,5 +1,3 @@
-# Utility functions for space weather data handling
-
 const DATA_DIR = Ref{String}("")
 
 """
@@ -15,11 +13,7 @@ function datadir()
     return DATA_DIR[]
 end
 
-"""
-    download_file(url, dest; update=false, min_age=Hour(3))
-
-Download a file from `url` to `dest` if it doesn't exist or is older than `min_age`.
-"""
+# Download a file from `url` to `dest` if it doesn't exist or is older than `min_age`.
 function download_file(url, dest; update = false, min_age = Hour(3))
     needs_download = !isfile(dest)
     if !needs_download && update
@@ -31,4 +25,17 @@ function download_file(url, dest; update = false, min_age = Hour(3))
         Downloads.download(url, dest)
     end
     return dest
+end
+
+
+function _cfvar2keyedarray(var)
+    ds = NCDatasets.dataset(var)
+    dnames = NCDatasets.dimnames(var)
+    nda = NamedDimsArray{Symbol.(dnames)}(Array(var))
+    varnames = NCDatasets.varnames(ds)
+    keys = ntuple(ndims(var)) do i
+        name = dnames[i]
+        name in varnames ? nomissing(Array(ds[name])) : axes(nda, i)
+    end
+    return KeyedArray(nda, keys)
 end

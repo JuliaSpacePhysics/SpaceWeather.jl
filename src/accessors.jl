@@ -19,19 +19,19 @@ function Ap(args...; source = :celestrak, kwargs...)
 end
 
 """
-    xrsa(id, args...; kwargs...)
+    xrsa(id, args...; kwargs...) :: KeyedArray
 
 Get GOES-R XRS-A (0.05-0.4 nm) X-ray flux data.
 """
 function xrsa(id, args...; kwargs...)
-    return goesr_xrs(id, args...; kwargs...).xrsa_flux
+    return XRS(id, args...; kwargs...)["xrsa_flux"] |> _cfvar2keyedarray
 end
 
 """
-    xrsb(id, args...; kwargs...)
+    xrsb(id, args...; kwargs...) :: KeyedArray
 
 Get GOES-R XRS-B (0.1-0.8 nm) X-ray flux data.
 """
-function xrsb(satellite, args...; kwargs...)
-    return goesr_xrs(satellite, args...; kwargs...).xrsb_flux
+function xrsb(id, args...; kwargs...)
+    return XRS(id, args...; kwargs...)["xrsb_flux"] |> _cfvar2keyedarray
 end
