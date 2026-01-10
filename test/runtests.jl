@@ -31,7 +31,9 @@ end
     @test length(result.time) == length(result)
 end
 
-@testset "GOES-R XRS data" begin
+@testset "GOES-R data" begin
     data = xrsa(16, Date(2020, 6, 1))
     @test length(data.time) == length(data)
+    mag_ds = MAG(16, Date(2020, 6, 1), Date(2020, 6, 2))
+    @test length(mag_ds["b_total"]) == 2880
 end

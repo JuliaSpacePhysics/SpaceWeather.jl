@@ -14,6 +14,7 @@ Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
 DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 Downloads = "f43a241f-c20a-4ad4-852c-f6b1247861c6"
 NCDatasets = "85f8d34a-cbdd-5861-8df4-14fed0d494ab"
+URIs = "5c2747f8-b7ea-4ff2-ba2e-563bfd36b1d4"
 
 [compat]
 AxisKeys = "0.2"
@@ -23,4 +24,5 @@ Dates = "1"
 DelimitedFiles = "1"
 Downloads = "1"
 NCDatasets = "0.14"
+URIs = "1"
 julia = "1.10"
