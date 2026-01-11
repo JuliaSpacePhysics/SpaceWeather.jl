@@ -27,6 +27,17 @@ function download_file(url, dest; update = false, min_age = Hour(3))
     return dest
 end
 
+function download_file(url; kw...)
+    uri = URI(url)
+    relpath = lstrip(uri.path, '/')
+    local_path = joinpath(datadir(), relpath)
+    mkpath(dirname(local_path))
+    if isfile(local_path) && !update
+        return local_path
+    end
+    return download_file(url, local_path; kw...)
+end
+
 
 function _cfvar2keyedarray(var)
     ds = NCDatasets.dataset(var)

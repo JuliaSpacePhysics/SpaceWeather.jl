@@ -5,14 +5,14 @@ end
 
 function (ins::GoesInstrument)(id, date; kw...)
     url = ins._url_pattern(id, date; kw...)
-    file = _download_geos_file(url)
+    file = download_file(url)
     return NCDataset(file)
 end
 
 function (ins::GoesInstrument)(id, t0, t1; kw...)
     dt = Day(1)
     dates = Date(floor(t0, dt)):dt:Date(ceil(t1, dt))
-    files = _download_geos_file.(ins._url_pattern.(id, dates; kw...))
+    files = download_file.(ins._url_pattern.(id, dates; kw...))
     return NCDataset(files, aggdim = "time")
 end
 

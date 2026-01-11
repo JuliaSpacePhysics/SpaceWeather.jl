@@ -14,11 +14,10 @@ include("utils.jl")
 
 # Data sources
 include("celestrak.jl")
-include("goesr/goesr.jl")
+include("goesr/goesr.jl"); using .GEOS
 include("accessors.jl")
 
 export celestrak
-export MPSH, XRS, SGPS, MAG
 
 # High-level accessors
 export Kp, Ap
