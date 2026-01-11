@@ -8,7 +8,7 @@
 - Catalog: https://catalog.data.gov/dataset/geostationary-operational-environmental-satellite-r-series-goes-r-space-environment-in-situ-sui2
 - SEISS Documentation: https://www.ncei.noaa.gov/products/goes-r-space-environment-in-situ
 """
-module GEOS
+module GOES
 using ..SpaceWeather: download_file
 using Dates
 using NCDatasets

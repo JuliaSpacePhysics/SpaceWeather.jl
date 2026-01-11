@@ -22,7 +22,7 @@ function download_file(url, dest; update = false, min_age = Hour(3))
     end
     if needs_download
         mkpath(dirname(dest))
-        Downloads.download(url, dest)
+        download(url, dest)
     end
     return dest
 end
