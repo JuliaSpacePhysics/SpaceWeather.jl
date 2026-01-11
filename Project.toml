@@ -1,6 +1,6 @@
 name = "SpaceWeather"
 uuid = "6e6210c8-0d11-4989-92a2-df0be76561ad"
-version = "0.1.0"
+version = "0.2.0"
 authors = ["Beforerr <zzj956959688@gmail.com> and contributors"]
 
 [workspace]
