@@ -4,7 +4,7 @@ CurrentModule = SpaceWeather
 
 # SpaceWeather
 
-Documentation for [SpaceWeather](https://github.com/JuliaSpacePhysics/SpaceWeather.jl).
+[![version](https://juliahub.com/docs/General/PlasmaBO/stable/version.svg)](https://juliahub.com/ui/Packages/General/SpaceWeather)
 
 SpaceWeather.jl provides easy access to space weather indices and data, with automatic downloading and caching from various sources.
 
