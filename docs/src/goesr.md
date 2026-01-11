@@ -1,6 +1,6 @@
 # Reading and Plotting GOES-R XRS Data
 
-Example for reading and plotting GOES-R EXIS X-ray sensr data
+Example for reading and plotting GOES-R data
 
 ## Basic Usage
 
@@ -19,12 +19,13 @@ xrsb = xrs["xrsb_flux"]  # Long wavelength (0.1-0.8 nm)
 ```@example goesr
 # load Magnetospheric Particle Sensor High (MPS-HI)
 mpsh_ds = SpaceWeather.MPSH(16, Date(2020, 6, 1))
-var = mpsh_ds["AvgDiffProtonFlux"]
+mpsh_ds["AvgDiffProtonFlux"]
 ```
 
 ```@example goesr
 # load MAG Data
 mag_ds = SpaceWeather.MAG(16, Date(2020, 6, 1))
+mag_ds["b_total"]
 ```
 
 ## Plotting Example

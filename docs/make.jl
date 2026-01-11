@@ -12,7 +12,7 @@ makedocs(;
     ),
     pages = [
         "Home" => "index.md",
-        "GOES-R XRS Example" => "goesr_example.md",
+        "GOES-R Example" => "goesr.md",
     ],
 )
 
