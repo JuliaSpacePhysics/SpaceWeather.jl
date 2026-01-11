@@ -51,5 +51,5 @@ Data is automatically cached and can be refreshed with `celestrak(update=true)`.
 ```
 
 ```@autodocs
-Modules = [SpaceWeather]
+Modules = [SpaceWeather, SpaceWeather.GOES]
 ```

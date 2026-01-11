@@ -32,7 +32,7 @@ end
 end
 
 @testset "GOES-R data" begin
-    using SpaceWeather.GEOS
+    using SpaceWeather.GOES
     data = xrsa(16, Date(2020, 6, 1))
     @test length(data.time) == length(data)
     mag_ds = MAG(16, Date(2020, 6, 1), Date(2020, 6, 2))
