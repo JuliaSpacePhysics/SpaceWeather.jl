@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>GOES-R Example · SpaceWeather.jl</title><meta name="title" content="GOES-R Example · SpaceWeather.jl"/><meta property="og:title" content="GOES-R Example · SpaceWeather.jl"/><meta property="twitter:title" content="GOES-R Example · SpaceWeather.jl"/><meta name="description" content="Documentation for SpaceWeather.jl."/><meta property="og:description" content="Documentation for SpaceWeather.jl."/><meta property="twitter:description" content="Documentation for SpaceWeather.jl."/><meta property="og:url" content="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr/"/><meta property="twitter:url" content="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr/"/><link rel="canonical" href="https://JuliaSpacePhysics.github.io/SpaceWeather.jl/goesr/"/><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../search_index.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit"><a href="../">SpaceWeather.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../">Home</a></li><li class="is-active"><a class="tocitem" href>GOES-R Example</a><ul class="internal"><li><a class="tocitem" href="#Basic-Usage"><span>Basic Usage</span></a></li><li><a class="tocitem" href="#Plotting-Example"><span>Plotting Example</span></a></li></ul></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>GOES-R Example</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>GOES-R Example</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/JuliaSpacePhysics/SpaceWeather.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/JuliaSpacePhysics/SpaceWeather.jl/blob/main/docs/src/goesr.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Reading-and-Plotting-GOES-R-XRS-Data"><a class="docs-heading-anchor" href="#Reading-and-Plotting-GOES-R-XRS-Data">Reading and Plotting GOES-R XRS Data</a><a id="Reading-and-Plotting-GOES-R-XRS-Data-1"></a><a class="docs-heading-anchor-permalink" href="#Reading-and-Plotting-GOES-R-XRS-Data" title="Permalink"></a></h1><p>Example for reading and plotting GOES-R data</p><h2 id="Basic-Usage"><a class="docs-heading-anchor" href="#Basic-Usage">Basic Usage</a><a id="Basic-Usage-1"></a><a class="docs-heading-anchor-permalink" href="#Basic-Usage" title="Permalink"></a></h2><pre><code class="language-julia hljs">using SpaceWeather
+using Dates
+
+# Download and load XRS data for a single day
+xrs = XRS(16, Date(2020, 6, 1))
+
+# Access X-ray flux data
+xrsa = xrs[&quot;xrsa_flux&quot;]  # Short wavelength (0.05-0.4 nm)
+xrsb = xrs[&quot;xrsb_flux&quot;]  # Long wavelength (0.1-0.8 nm)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr32">xrsb_flux</span> (1440)
+  Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+  Dimensions:  time
+  Attributes:
+   long_name            = <span class="sgr36">XRS-B primary average flux.</span>
+   comments             = <span class="sgr36">Electron contamination has been removed. xrsb_flux =  xrsb_flux_observed - xrsb_flux_electrons</span>
+   units                = <span class="sgr36">W/m2</span>
+   _FillValue           = <span class="sgr36">-9999.0</span>
+   valid_min            = <span class="sgr36">1.0e-9</span>
+   valid_max            = <span class="sgr36">0.2</span>
+   ancillary_variables  = <span class="sgr36">xrsb_flag xrsb_num xrsb_flag_excluded</span>
+</code></pre><pre><code class="language-julia hljs"># load Magnetospheric Particle Sensor High (MPS-HI)
+mpsh_ds = SpaceWeather.MPSH(16, Date(2020, 6, 1))
+mpsh_ds[&quot;AvgDiffProtonFlux&quot;]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr32">AvgDiffProtonFlux</span> (11 × 5 × 1440)
+  Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+  Dimensions:  proton_diff_chans × telescopes × time
+  Attributes:
+   long_name            = <span class="sgr36">Time-averaged proton fluxes in several differential channels between 80 and 10,000 keV</span>
+   units                = <span class="sgr36">protons/(cm^2 sr keV s)</span>
+   _FillValue           = <span class="sgr36">-1.0e31</span>
+   valid_min            = <span class="sgr36">0.0</span>
+   valid_max            = <span class="sgr36">460000.0</span>
+</code></pre><pre><code class="language-julia hljs"># load MAG Data
+mag_ds = SpaceWeather.MAG(16, Date(2020, 6, 1))
+mag_ds[&quot;b_total&quot;]</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi"><span class="sgr32">b_total</span> (1440)
+  Datatype:    <span class="sgr1">Union{Missing, Float32}</span> (Float32)
+  Dimensions:  time
+  Attributes:
+   _FillValue           = <span class="sgr36">-9999.0</span>
+   long_name            = <span class="sgr36">magnetic_field_total_magnitude</span>
+   comments             = <span class="sgr36">Estimated ambient magnetic field in ACRF coordinates (total).</span>
+   units                = <span class="sgr36">nT</span>
+   valid_min            = <span class="sgr36">0.0</span>
+   valid_max            = <span class="sgr36">1024.0</span>
+</code></pre><h2 id="Plotting-Example"><a class="docs-heading-anchor" href="#Plotting-Example">Plotting Example</a><a id="Plotting-Example-1"></a><a class="docs-heading-anchor-permalink" href="#Plotting-Example" title="Permalink"></a></h2><pre><code class="language-julia hljs">using CairoMakie
+
+f = Figure()
+ax1 = Axis(f[1, 1]; yscale = log10, xlabel = &quot;Time (UTC)&quot;, ylabel = &quot;X-Ray Flux\n($(xrsa.attrib[&quot;units&quot;]))&quot;)
+times = nomissing(xrs[&quot;time&quot;][:])
+lines!(ax1, times, nomissing(xrsa[:]); label = &quot;GOES-16 XRS-A (0.05-0.4 nm)&quot;, color = :mediumorchid)
+lines!(ax1, times, nomissing(xrsb[:]); label = &quot;GOES-16 XRS-B (0.1-0.8 nm)&quot;, color = :green)
+
+# Plot 1 day of MPSH 1-minute AvgDiffProtonFlux in Telescope 0, Band 0
+var = mpsh_ds[&quot;AvgDiffProtonFlux&quot;]
+ax2 = Axis(f[2, 1]; yscale = log10, xlabel = &quot;Time (UTC)&quot;, ylabel = &quot;AvgDiffProtonFlux\n($(var.attrib[&quot;units&quot;]))&quot;)
+times = nomissing(mpsh_ds[&quot;time&quot;][:])
+lines!(ax2, times, var[1, 1, :])
+
+var = mag_ds[&quot;b_total&quot;]
+ax3 = Axis(f[3, 1]; ylabel = &quot;b_total\n($(var.attrib[&quot;units&quot;]))&quot;)
+times = nomissing(mag_ds[&quot;time&quot;][:])
+lines!(ax3, times, var[:])
+
+hidexdecorations!.((ax1, ax2); grid = false)
+f</code></pre><img src="3d7b6104.png" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Home</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.16.1 on <span class="colophon-date" title="Sunday 11 January 2026 06:42">Sunday 11 January 2026</span>. Using Julia version 1.12.4.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
