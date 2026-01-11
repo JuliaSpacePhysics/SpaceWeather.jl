@@ -6,6 +6,7 @@ Example for reading and plotting GOES-R data
 
 ```@example goesr
 using SpaceWeather
+using SpaceWeather.GEOS
 using Dates
 
 # Download and load XRS data for a single day

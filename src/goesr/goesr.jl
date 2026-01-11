@@ -1,9 +1,18 @@
-# Geostationary Operational Environmental Satellites
-# [Geostationary Operational Environmental Satellites - R Series | NOAA/NASA](https://www.goes-r.gov/)
-# Source: [NOAA GOES-R Data](https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/)
-# Documentation: https://www.ngdc.noaa.gov/stp/satellite/goes-r.html
-# Catalog: https://catalog.data.gov/dataset/geostationary-operational-environmental-satellite-r-series-goes-r-space-environment-in-situ-sui2
-# SEISS Documentation: https://www.ncei.noaa.gov/products/goes-r-space-environment-in-situ
+"""
+
+    Geostationary Operational Environmental Satellites
+
+- R Series | NOAA/NASA: https://www.goes-r.gov/
+- Data Source: https://data.ngdc.noaa.gov/platforms/solar-space-observing-satellites/goes/
+- Documentation: https://www.ngdc.noaa.gov/stp/satellite/goes-r.html
+- Catalog: https://catalog.data.gov/dataset/geostationary-operational-environmental-satellite-r-series-goes-r-space-environment-in-situ-sui2
+- SEISS Documentation: https://www.ncei.noaa.gov/products/goes-r-space-environment-in-situ
+"""
+module GEOS
+using ..SpaceWeather: download_file
+using Dates
+using NCDatasets
+export MPSH, XRS, SGPS, MAG
 
 include("types.jl")
 
@@ -40,15 +49,4 @@ dataset = XRS(16, Date(2020, 6, 1), Date(2020, 6, 2))
 dataset.xrsa_flux  # Combined X-ray flux data
 ```
 """ XRS
-
-function _download_geos_file(url; update = false)
-    uri = URI(url)
-    relpath = lstrip(uri.path, '/')
-    local_path = joinpath(datadir(), relpath)
-    mkpath(dirname(local_path))
-    if isfile(local_path) && !update
-        return local_path
-    end
-    download_file(url, local_path; update, min_age = Day(1))
-    return local_path
 end
