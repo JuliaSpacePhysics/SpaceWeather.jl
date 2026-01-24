@@ -1,9 +1,9 @@
-const CELESTRAK_URL = "https://celestrak.com/SpaceData/SW-All.csv"
+const CELESTRAK_URL = "https://celestrak.org/SpaceData/SW-All.csv"
 
 """
 Celestrak space weather data.
 
-- Source: https://celestrak.com/SpaceData/
+- Source: https://celestrak.org/SpaceData/
 - Documentation: https://celestrak.org/SpaceData/SpaceWx-format.php
 
 Provides:
@@ -61,8 +61,7 @@ data.ISN                          # Sunspot numbers
 """
 function celestrak(; url = CELESTRAK_URL, update = false)
     if isnothing(_CELESTRAK_CACHE[]) || update
-        path = joinpath(datadir(), basename(url))
-        download_file(url, path; update, min_age = Day(30))
+        path = localize(url; update = update ? Day(30) : false)
 
         # Read and filter to exclude preliminary data
         all_data = CSV.read(path, DataFrame; typemap = IdDict(Int => Float64))

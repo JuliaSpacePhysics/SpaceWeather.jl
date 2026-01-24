@@ -33,8 +33,11 @@ end
 
 @testset "GOES-R data" begin
     using SpaceWeather.GOES
-    data = xrsa(16, Date(2020, 6, 1))
+    @test_throws ArgumentError MAG[id = 15]
+
+    data = xrsa(Date(2020, 6, 1), Date(2020, 6, 2))
     @test length(data.time) == length(data)
-    mag_ds = MAG(16, Date(2020, 6, 1), Date(2020, 6, 2))
-    @test length(mag_ds["b_total"]) == 2880
+    # A midnight endpoint is exclusive
+    @test length(getdata(MAG[]["b_total"], Date(2020, 6, 1), Date(2020, 6, 2))) == 1440
+    @test length(getdata(MAG[id = 16]["b_total"], Date(2020, 6, 1), Date(2020, 6, 3))) == 2880
 end
