@@ -1,4 +1,4 @@
-# Reading and Plotting GOES-R XRS Data
+# Geostationary Operational Environmental Satellites (GOES)
 
 Example for reading and plotting GOES-R data
 
@@ -10,7 +10,7 @@ using SpaceWeather.GOES
 using Dates
 
 # Download and load XRS data for a single day
-xrs = GOES.XRS(16, Date(2020, 6, 1))
+xrs = GOES.XRS[id = 16](Date(2020, 6, 1), Date(2020, 6, 2))
 
 # Access X-ray flux data
 xrsa = xrs["xrsa_flux"]  # Short wavelength (0.05-0.4 nm)
@@ -19,17 +19,17 @@ xrsb = xrs["xrsb_flux"]  # Long wavelength (0.1-0.8 nm)
 
 ```@example goesr
 # load Magnetospheric Particle Sensor High (MPS-HI)
-mpsh_ds = GOES.MPSH(16, Date(2020, 6, 1))
+mpsh_ds = GOES.MPSH[id = 16](Date(2020, 6, 1), Date(2020, 6, 2))
 mpsh_ds["AvgDiffProtonFlux"]
 ```
 
 ```@example goesr
 # load MAG Data
-mag_ds = GOES.MAG(16, Date(2020, 6, 1))
+mag_ds = GOES.MAG[id = 16](Date(2020, 6, 1), Date(2020, 6, 2))
 mag_ds["b_total"]
 ```
 
-## Plotting Example
+## Plotting GOES-R XRS Data
 
 ```@example goesr
 using CairoMakie

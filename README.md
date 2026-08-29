@@ -1,11 +1,6 @@
 # SpaceWeather
 
-[![version](https://juliahub.com/docs/General/SpaceWeather/stable/version.svg)](https://juliahub.com/ui/Packages/General/SpaceWeather)
-
-[![Build Status](https://github.com/JuliaSpacePhysics/SpaceWeather.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/JuliaSpacePhysics/SpaceWeather.jl/actions/workflows/CI.yml?query=branch%3Amain)
 [![Coverage](https://codecov.io/gh/JuliaSpacePhysics/SpaceWeather.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/JuliaSpacePhysics/SpaceWeather.jl)
-[![Aqua](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
-
 
 **Installation**: at the Julia REPL, run `using Pkg; Pkg.add("SpaceWeather")`
 
