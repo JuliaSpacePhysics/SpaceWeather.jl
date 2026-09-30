@@ -7,3 +7,5 @@ SpaceWeather = "6e6210c8-0d11-4989-92a2-df0be76561ad"
 
 [compat]
 SpaceDataModel = "0.3"
+CairoMakie = "0.15"
+Documenter = "1"
