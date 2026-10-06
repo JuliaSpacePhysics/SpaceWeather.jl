@@ -6,6 +6,6 @@ SpaceDataModel = "0b37b92c-f0c5-4a52-bd5c-390dec20857c"
 SpaceWeather = "6e6210c8-0d11-4989-92a2-df0be76561ad"
 
 [compat]
-SpaceDataModel = "0.3"
+SpaceDataModel = "0.3, 0.4"
 CairoMakie = "0.15"
 Documenter = "1"

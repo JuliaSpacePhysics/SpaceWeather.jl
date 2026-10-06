@@ -6,5 +6,5 @@ SpaceWeather = "6e6210c8-0d11-4989-92a2-df0be76561ad"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
 
 [compat]
-SpaceDataModel = "0.3"
+SpaceDataModel = "0.3, 0.4"
 Aqua = "0.8"
