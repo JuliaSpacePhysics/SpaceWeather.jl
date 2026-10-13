@@ -16,7 +16,7 @@ SpaceDataModel = "0b37b92c-f0c5-4a52-bd5c-390dec20857c"
 
 [compat]
 AxisKeys = "0.2"
-CSV = "0.10"
+CSV = "0.10, 1.1"
 DataFrames = "1.8"
 Dates = "1"
 NCDatasets = "0.14"
