@@ -4,6 +4,7 @@
 
 ### Changed
 
+- **Breaking**: GFZ replaces Celestrak. Use `ap` for the former three-hourly `Ap`. Uppercase `Ap` now gives daily means. Index times mark interval starts and the end date is exclusive.
 - **Breaking**: `xrsa` and `xrsb` are removed; use `getdata(GOES.XRS[id = 16]["xrsb_flux"], t0, t1)`.
 
 ### Changed
