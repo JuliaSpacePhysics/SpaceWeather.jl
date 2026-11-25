@@ -4,7 +4,7 @@ using Documenter
 DocMeta.setdocmeta!(SpaceWeather, :DocTestSetup, :(using SpaceWeather); recursive = true)
 
 makedocs(;
-    modules = [SpaceWeather, SpaceWeather.GOES],
+    modules = [SpaceWeather, SpaceWeather.GFZ, SpaceWeather.GOES],
     authors = "Beforerr <zzj956959688@gmail.com> and contributors",
     sitename = "SpaceWeather.jl",
     format = Documenter.HTML(;
