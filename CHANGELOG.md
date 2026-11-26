@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+
+- **Breaking**: `xrsa` and `xrsb` are removed; use `getdata(GOES.XRS[id = 16]["xrsb_flux"], t0, t1)`.
 
 ### Changed
 
