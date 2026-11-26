@@ -35,8 +35,6 @@ end
     using SpaceWeather.GOES
     @test_throws ArgumentError MAG[id = 15]
 
-    data = xrsa(Date(2020, 6, 1), Date(2020, 6, 2))
-    @test length(data.time) == length(data)
     # A midnight endpoint is exclusive
     @test length(getdata(MAG[]["b_total"], Date(2020, 6, 1), Date(2020, 6, 2))) == 1440
     @test length(getdata(MAG[id = 16]["b_total"], Date(2020, 6, 1), Date(2020, 6, 3))) == 2880

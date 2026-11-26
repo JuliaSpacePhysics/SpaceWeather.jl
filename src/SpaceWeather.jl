@@ -4,12 +4,8 @@ using Dates
 using CSV
 using SpaceDataModel: getdata, available, localize
 using DataFrames: DataFrame, dropmissing!
-using AxisKeys: KeyedArray, NamedDimsArray
-using NCDatasets: NCDatasets
+using AxisKeys: KeyedArray
 using NCDatasets: nomissing
-
-# Core utilities
-include("utils.jl")
 
 # Data sources
 include("celestrak.jl")
@@ -21,7 +17,6 @@ export getdata, available
 
 # High-level accessors
 export Kp, Ap
-export xrsa, xrsb
 
 export nomissing
 
